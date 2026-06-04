@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="./assets/terox-templates.png" alt="A Go gopher in an archive, browsing a folder pulled from a shelf of templates" width="600" />
+
 # 🚀 terox-templates
 
 **Official Weburz template catalogue for the [Terox](https://github.com/Weburz/terox) scaffolder.**
@@ -69,7 +71,7 @@ terox scaffold ./npm-package --output /tmp/scratch
 MIT &copy; [Weburz](https://github.com/Weburz)
 
 <!-- Badges -->
-[license-src]: https://img.shields.io/github/license/Weburz/terox-templates.svg?style=flat&colorA=020420&colorB=00DC82
+[license-src]: https://img.shields.io/badge/license-MIT-020420?style=flat&colorA=020420&colorB=00DC82
 [license-href]: ./LICENSE
 
 [terox-src]: https://img.shields.io/badge/Powered%20by-Terox-020420?style=flat&colorA=020420&colorB=00DC82

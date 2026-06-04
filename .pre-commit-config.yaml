@@ -1,0 +1,27 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+      - id: no-commit-to-branch
+
+      # YAML / JSON syntax checks skip template directories, whose files
+      # contain pre-render Go text/template syntax (e.g. `{{ .PackageName }}`,
+      # `${{ "{{" }} secrets.X }}`) that's not valid YAML/JSON until Terox
+      # renders it. The QA workflow renders every template and is the
+      # authoritative correctness check.
+      #
+      # When you add a new template directory, append it to this exclude.
+      - id: check-yaml
+        exclude: ^(npm-package|nuxt-module)/
+      - id: check-json
+        exclude: ^(npm-package|nuxt-module)/
+
+  - repo: https://github.com/Weburz/crisp
+    rev: v0.1.6
+    hooks:
+      - id: crisp
+        stages: [commit-msg]
+        name: lint git-commit messages

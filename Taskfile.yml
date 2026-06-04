@@ -1,0 +1,84 @@
+version: "3"
+
+silent: true
+
+tasks:
+  default:
+    desc: Show available tasks.
+    cmd: task --list
+
+  setup:
+    desc: Install pre-commit hooks for local development.
+    summary: |
+      One-time setup. Run after cloning to install the pre-commit and
+      commit-msg hooks declared in .pre-commit-config.yaml.
+    sources:
+      - .pre-commit-config.yaml
+    generates:
+      - .git/hooks/pre-commit
+      - .git/hooks/commit-msg
+    cmd: pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
+
+  list:
+    desc: List every template in the monorepo (with description if jq is installed).
+    cmds:
+      - |
+        shopt -s nullglob
+        manifests=(*/terox.json)
+        if [ ${#manifests[@]} -eq 0 ]; then
+          echo "No templates found."
+          exit 0
+        fi
+        for tpl in "${manifests[@]}"; do
+          dir=$(dirname "$tpl")
+          if command -v jq >/dev/null 2>&1; then
+            desc=$(jq -r '.description // ""' "$tpl")
+            printf "  %-16s  %s\n" "$dir" "$desc"
+          else
+            printf "  %s\n" "$dir"
+          fi
+        done
+
+  render:
+    desc: "Render one template with defaults to /tmp. Usage: task render -- <name>"
+    summary: |
+      Render-check a single template into /tmp/terox-render/<name> using
+      defaults from its terox.json. Useful while iterating on a template.
+
+      Usage: task render -- npm-package
+    cmds:
+      - |
+        if [ -z "{{.CLI_ARGS}}" ]; then
+          echo "Usage: task render -- <template-name>" >&2
+          exit 2
+        fi
+        if [ ! -d "{{.CLI_ARGS}}" ] || [ ! -f "{{.CLI_ARGS}}/terox.json" ]; then
+          echo "Unknown template: {{.CLI_ARGS}}" >&2
+          exit 2
+        fi
+        rm -rf "/tmp/terox-render/{{.CLI_ARGS}}"
+        terox scaffold "./{{.CLI_ARGS}}" --output "/tmp/terox-render/{{.CLI_ARGS}}" --non-interactive
+        echo "Rendered to /tmp/terox-render/{{.CLI_ARGS}}"
+
+  render-all:
+    desc: Render every template with defaults. Local smoke-test mirroring CI.
+    cmds:
+      - rm -rf /tmp/terox-render-all
+      - |
+        set -e
+        shopt -s nullglob
+        manifests=(*/terox.json)
+        if [ ${#manifests[@]} -eq 0 ]; then
+          echo "No templates found." >&2
+          exit 1
+        fi
+        for tpl in "${manifests[@]}"; do
+          dir=$(dirname "$tpl")
+          echo "→ $dir"
+          terox scaffold "./$dir" --output "/tmp/terox-render-all/$dir" --non-interactive
+        done
+        echo "All ${#manifests[@]} template(s) rendered to /tmp/terox-render-all/"
+
+  clean:
+    desc: Remove cached render outputs under /tmp.
+    cmd: rm -rf /tmp/terox-render /tmp/terox-render-all

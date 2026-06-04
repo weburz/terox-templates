@@ -1,0 +1,50 @@
+name: "Render every template"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - synchronize
+      - opened
+      - ready_for_review
+      - reopened
+      - review_requested
+    branches-ignore:
+      - dependabot/**
+
+jobs:
+  render:
+    name: Smoke-test every template renders with defaults
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "stable"
+
+      - name: Install terox
+        run: go install github.com/weburz/terox@latest
+
+      - name: Render every template with defaults
+        shell: bash
+        run: |
+          set -e
+          shopt -s nullglob
+          manifests=(*/terox.json)
+          if [ ${#manifests[@]} -eq 0 ]; then
+            echo "No templates found (no */terox.json at repo root)" >&2
+            exit 1
+          fi
+          for tpl in "${manifests[@]}"; do
+            dir=$(dirname "$tpl")
+            echo "::group::rendering $dir"
+            terox scaffold "./$dir" --output "/tmp/render/$dir" --non-interactive
+            echo "::endgroup::"
+          done
+          echo "All ${#manifests[@]} template(s) rendered cleanly."
