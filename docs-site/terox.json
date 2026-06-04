@@ -1,0 +1,61 @@
+{
+  "name": "docs-site",
+  "description": "Weburz-flavored Nuxt 4 documentation site. @nuxt/content + @nuxt/ui v4 + Tailwind v4, brand colors, optional Umami analytics, content schema, ESLint + Prettier, GitHub Actions QA + Pages deploy.",
+  "variables": [
+    {
+      "name": "ProjectName",
+      "prompt": "Project display name (used in titles, headers, hero)",
+      "default": "My Project"
+    },
+    {
+      "name": "ProjectTagline",
+      "prompt": "Short hero tagline",
+      "default": "Documentation for My Project."
+    },
+    {
+      "name": "ProjectDescription",
+      "prompt": "One-sentence project description (used in meta tags and hero subtitle)",
+      "default": "Everything you need to know to use My Project."
+    },
+    {
+      "name": "PackageName",
+      "prompt": "npm package name for the docs site (private)",
+      "default": "my-project-docs"
+    },
+    {
+      "name": "GitHubOwner",
+      "prompt": "GitHub owner / organization",
+      "default": "Weburz"
+    },
+    {
+      "name": "GitHubRepo",
+      "prompt": "GitHub repository name (without owner)",
+      "default": "my-project"
+    },
+    {
+      "name": "SiteUrl",
+      "prompt": "Production URL for the docs site (used in <link rel=canonical>, SEO)",
+      "default": "https://my-project.weburz.com"
+    },
+    {
+      "name": "AuthorName",
+      "prompt": "Author / copyright holder",
+      "default": "Weburz"
+    },
+    {
+      "name": "LicenseYear",
+      "prompt": "License year",
+      "default": "2026"
+    },
+    {
+      "name": "CodeOwner",
+      "prompt": "GitHub user for CODEOWNERS and Dependabot assignee (without @)",
+      "default": "sagar-kap"
+    },
+    {
+      "name": "UmamiScriptUrl",
+      "prompt": "Umami analytics script URL (replace with your Umami instance; the placeholder default is obviously fake)",
+      "default": "https://your-umami-instance.example.com/script.js"
+    }
+  ]
+}

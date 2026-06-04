@@ -1,0 +1,46 @@
+name: Bug Report
+description: File a bug report about the documentation
+title: "[DOCS BUG]: "
+labels: ["bug", "documentation"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this docs issue!
+
+  - type: input
+    id: page
+    attributes:
+      label: Affected page
+      description: URL or path of the docs page where you saw the issue.
+      placeholder: https://{{ .SiteUrl }}/getting-started/installation
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What's wrong?
+      description: Describe what's incorrect, confusing, missing, or broken.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to see?
+      description: What would have been correct or clearer?
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, OS, and anything else that might be relevant for visual or interactive issues.
+      value: |
+        - Browser + version:
+        - OS:
+    validations:
+      required: false

@@ -1,0 +1,47 @@
+# Auto detect text files and perform LF normalization
+*                  text=auto
+
+# Source code
+*.css              text diff=css
+*.html             text diff=html
+*.js               text
+*.json             text
+*.jsx              text
+*.mjs              text
+*.scss             text diff=css
+*.ts               text
+*.tsx              text
+*.vue              text
+*.svg              text
+
+# Documentation
+*.md               text diff=markdown
+
+# Configs
+*.editorconfig     text
+*.lock             text -diff
+package.json       text eol=lf
+pnpm-lock.yaml     text eol=lf -diff
+tsconfig.json      linguist-language=JSON-with-Comments
+*.toml             text
+*.yaml             text
+*.yml              text
+
+# RC files
+*.*rc              text
+
+# Ignore files
+*.*ignore          text
+
+# Graphics
+*.png              binary
+*.jpg              binary
+*.jpeg             binary
+*.gif              binary
+*.ico              binary
+*.webp             binary
+
+# Fonts
+*.ttf              binary
+*.woff             binary
+*.woff2            binary

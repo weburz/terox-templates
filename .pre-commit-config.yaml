@@ -15,9 +15,9 @@ repos:
       #
       # When you add a new template directory, append it to this exclude.
       - id: check-yaml
-        exclude: ^(npm-package|nuxt-module)/
+        exclude: ^(npm-package|nuxt-module|docs-site)/
       - id: check-json
-        exclude: ^(npm-package|nuxt-module)/
+        exclude: ^(npm-package|nuxt-module|docs-site)/
 
   - repo: https://github.com/Weburz/crisp
     rev: v0.1.6

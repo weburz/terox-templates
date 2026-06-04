@@ -1,0 +1,19 @@
+name: Feature Request
+description: Suggest a documentation improvement, new page, or new section
+title: "[DOCS ENHANCEMENT]: "
+labels: ["enhancement", "documentation"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement to the docs!
+
+  - type: textarea
+    id: feature-enhancement
+    attributes:
+      label: What should we add or change?
+      description: Explain the page, section, or improvement you have in mind.
+      placeholder: Add a guide for X, expand the Y section, …
+    validations:
+      required: true

@@ -24,10 +24,11 @@ Pick a starter, answer a handful of prompts, and you've got a fully-wired Weburz
 
 ## 📦 Templates
 
-|     | Template                            | What it gives you                                                                                                                  |
-| --- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| 🟦  | [`npm-package`](./npm-package)      | TypeScript npm package — `unbuild`, `vitest`, `eslint` flat config, GitHub Actions QA + `pnpm publish --provenance` on `v*` tags.  |
-| 🟩  | [`nuxt-module`](./nuxt-module)      | Nuxt 4 module — `@nuxt/module-builder`, runtime component, playground app deployed to GitHub Pages, vitest e2e fixture.            |
+|     | Template                            | What it gives you                                                                                                                                                                            |
+| --- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🟦  | [`npm-package`](./npm-package)      | TypeScript npm package — `unbuild`, `vitest`, `eslint` flat config, GitHub Actions QA + `pnpm publish --provenance` on `v*` tags.                                                            |
+| 🟩  | [`nuxt-module`](./nuxt-module)      | Nuxt 4 module — `@nuxt/module-builder`, runtime component, playground app deployed to GitHub Pages, vitest e2e fixture.                                                                      |
+| 📚  | [`docs-site`](./docs-site)          | Nuxt 4 documentation site — `@nuxt/content` + `@nuxt/ui` v4 + Tailwind v4, Weburz brand colors, self-hosted Umami analytics, ESLint + Prettier, auto-deploy to GitHub Pages.                  |
 
 More on the way as Weburz grows the catalogue.
 
@@ -53,12 +54,15 @@ terox scaffold ./npm-package --output /tmp/scratch
 
 ## ➕ Adding a new template
 
-1. Create a new top-level directory.
-2. Drop a `terox.json` at its root declaring the prompted variables.
-3. Use Go `text/template` syntax — `{{ .VarName }}` — anywhere you want substitution. Both file *contents* and file/directory **names** are rendered. Files with no `{{` are copied byte-for-byte.
-4. **Escape literal `{{` in GitHub Actions workflows and Vue templates** as `{{ "{{" }}` so `${{ secrets.X }}` and Vue's `{{ message }}` survive intact.
-5. Add a row to the [Templates table](#-templates) above.
-6. Render-check locally with `terox scaffold ./your-template --output /tmp/check`.
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** — it covers prerequisites, `terox.json` manifest syntax, the `{{ }}` escape gotcha, render-checking, and the three places to update when adding a new template directory.
+
+TL;DR for the impatient:
+
+```bash
+cp -r npm-package my-new-template     # or whichever existing template is closest
+$EDITOR my-new-template/terox.json    # edit the variables + description
+task render -- my-new-template        # render-check with defaults
+```
 
 ## 🧰 Built on
 
