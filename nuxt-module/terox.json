@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-module",
+  "description": "Weburz-flavored Nuxt 4 module starter. @nuxt/module-builder + runtime component + playground + vitest e2e fixture, eslint flat config, MIT, GitHub Actions QA + Pages deploy.",
+  "variables": [
+    {
+      "name": "PackageName",
+      "prompt": "npm package name (e.g. @weburz/my-module)",
+      "default": "@weburz/my-module"
+    },
+    {
+      "name": "PackageDescription",
+      "prompt": "Short package description",
+      "default": "A Nuxt 4 module by Weburz."
+    },
+    {
+      "name": "GitHubOwner",
+      "prompt": "GitHub owner / organization",
+      "default": "Weburz"
+    },
+    {
+      "name": "GitHubRepo",
+      "prompt": "GitHub repository name (without owner)",
+      "default": "my-module"
+    },
+    {
+      "name": "AuthorName",
+      "prompt": "Author / copyright holder",
+      "default": "Weburz"
+    },
+    {
+      "name": "LicenseYear",
+      "prompt": "License year",
+      "default": "2026"
+    },
+    {
+      "name": "CodeOwner",
+      "prompt": "GitHub user for CODEOWNERS and Dependabot assignee (without @)",
+      "default": "sagar-kap"
+    },
+    {
+      "name": "ComponentName",
+      "prompt": "Auto-imported runtime component name (PascalCase, e.g. HelloWorld)",
+      "default": "HelloWorld"
+    },
+    {
+      "name": "ConfigKey",
+      "prompt": "nuxt.config key consumers use for module options (camelCase, e.g. myModule)",
+      "default": "myModule"
+    }
+  ]
+}

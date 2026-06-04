@@ -1,0 +1,41 @@
+{
+  "name": "npm-package",
+  "description": "Weburz-flavored TypeScript npm package starter. unbuild + vitest + eslint + pnpm, MIT, GitHub Actions CI and publish workflow with npm provenance.",
+  "variables": [
+    {
+      "name": "PackageName",
+      "prompt": "npm package name (e.g. @weburz/my-package)",
+      "default": "@weburz/my-package"
+    },
+    {
+      "name": "PackageDescription",
+      "prompt": "Short package description",
+      "default": "A TypeScript library by Weburz."
+    },
+    {
+      "name": "GitHubOwner",
+      "prompt": "GitHub owner / organization",
+      "default": "Weburz"
+    },
+    {
+      "name": "GitHubRepo",
+      "prompt": "GitHub repository name (without owner)",
+      "default": "my-package"
+    },
+    {
+      "name": "AuthorName",
+      "prompt": "Author / copyright holder",
+      "default": "Weburz"
+    },
+    {
+      "name": "LicenseYear",
+      "prompt": "License year",
+      "default": "2026"
+    },
+    {
+      "name": "CodeOwner",
+      "prompt": "GitHub user for CODEOWNERS and Dependabot assignee (without @)",
+      "default": "sagar-kap"
+    }
+  ]
+}
