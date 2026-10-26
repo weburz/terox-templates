@@ -63,7 +63,7 @@
     "@nuxt/module-builder": "^1.0.2",
     "@nuxt/schema": "^4.4.5",
     "@nuxt/test-utils": "^4.0.3",
-    "@types/node": "latest",
+    "@types/node": "^20",
     "changelogen": "^0.6.2",
     "eslint": "^10.3.0",
     "happy-dom": "^20.9.0",

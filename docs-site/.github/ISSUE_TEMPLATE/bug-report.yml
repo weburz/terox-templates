@@ -14,7 +14,7 @@ body:
     attributes:
       label: Affected page
       description: URL or path of the docs page where you saw the issue.
-      placeholder: https://{{ .SiteUrl }}/getting-started/installation
+      placeholder: {{ .SiteUrl }}/getting-started/installation
     validations:
       required: true
 

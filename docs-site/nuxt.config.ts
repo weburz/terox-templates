@@ -7,11 +7,6 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
-  site: {
-    url: "{{ .SiteUrl }}",
-    name: "{{ .ProjectName }}",
-  },
-
   ui: {
     theme: {
       colors: [
