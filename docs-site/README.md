@@ -33,12 +33,12 @@ The schema for page frontmatter is in [`content.config.ts`](./content.config.ts)
 
 ## Branding
 
-| Where | What to change |
-| --- | --- |
-| `app/app.config.ts` | Site name, header/footer text, nav items, social links |
-| `app/assets/css/colors.css` | Brand color palettes (Weburz defaults: BurzBlue + BurzYellow) |
-| `app/components/AppLogo.vue` | The header logo SVG |
-| `public/favicon.svg` | The favicon (currently a placeholder rounded-square mark) |
+| Where                        | What to change                                                |
+| ---------------------------- | ------------------------------------------------------------- |
+| `app/app.config.ts`          | Site name, header/footer text, nav items, social links        |
+| `app/assets/css/colors.css`  | Brand color palettes (Weburz defaults: BurzBlue + BurzYellow) |
+| `app/components/AppLogo.vue` | The header logo SVG                                           |
+| `public/favicon.svg`         | The favicon (currently a placeholder rounded-square mark)     |
 
 ## Analytics
 
@@ -48,13 +48,13 @@ Set the GitHub Actions secret `UMAMI_WEBSITE_ID` on the repo to enable tracking 
 
 ## Quality gates
 
-| Script | What it runs |
-| --- | --- |
-| `pnpm lint` | ESLint flat config (`@nuxt/eslint` + Prettier-compat) |
-| `pnpm format:check` / `pnpm format` | Prettier with `prettier-plugin-organize-imports` |
-| `pnpm typecheck` | `nuxt typecheck` (vue-tsc) |
-| `pnpm build` | Production Nuxt build |
-| `pnpm generate` | Prerendered static build (what CI deploys) |
+| Script                              | What it runs                                          |
+| ----------------------------------- | ----------------------------------------------------- |
+| `pnpm lint`                         | ESLint flat config (`@nuxt/eslint` + Prettier-compat) |
+| `pnpm format:check` / `pnpm format` | Prettier with `prettier-plugin-organize-imports`      |
+| `pnpm typecheck`                    | `nuxt typecheck` (vue-tsc)                            |
+| `pnpm build`                        | Production Nuxt build                                 |
+| `pnpm generate`                     | Prerendered static build (what CI deploys)            |
 
 CI runs lint, format-check, type-check, and build on every PR via [`qa.yml`](./.github/workflows/qa.yml). Pushes to `main` also trigger [`deploy.yml`](./.github/workflows/deploy.yml), which prerenders and publishes to GitHub Pages.
 
@@ -72,8 +72,8 @@ pnpm setup:hooks
 MIT &copy; [{{ .AuthorName }}](https://github.com/{{ .GitHubOwner }})
 
 <!-- Badges -->
+
 [license-src]: https://img.shields.io/badge/license-MIT-020420?style=flat&colorA=020420&colorB=00DC82
 [license-href]: ./LICENSE
-
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt
 [nuxt-href]: https://nuxt.com

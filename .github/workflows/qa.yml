@@ -13,6 +13,11 @@ on:
       - review_requested
     branches-ignore:
       - dependabot/**
+  # Template dependencies use caret ranges and ship without a lockfile, so a
+  # template can break with no commit here. The weekly run catches that drift.
+  schedule:
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
 
 jobs:
   render:
@@ -48,3 +53,63 @@ jobs:
             echo "::endgroup::"
           done
           echo "All ${#manifests[@]} template(s) rendered cleanly."
+
+  build:
+    name: Build ${{ matrix.template }} from a fresh render
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Each entry mirrors the checks in that template's own
+        # .github/workflows/qa.yml, so a scaffolded project's first CI run
+        # passes. Add new templates here too (see CONTRIBUTING.md).
+        include:
+          - template: npm-package
+            scripts: lint test:types test build
+          - template: nuxt-module
+            scripts: lint dev:prepare test:types test prepack
+          - template: docs-site
+            scripts: lint format:check typecheck build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version: "stable"
+
+      - name: Install terox
+        run: go install github.com/weburz/terox@latest
+
+      - name: Render ${{ matrix.template }} with defaults
+        run: terox scaffold "./${{ matrix.template }}" --output "/tmp/render/${{ matrix.template }}" --non-interactive
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.2.0
+        with:
+          version: 11.1.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.2.0
+        with:
+          node-version: 22
+
+      # No --frozen-lockfile: templates deliberately ship without a lockfile,
+      # so this resolves the same versions a fresh scaffold would get today.
+      - name: Install dependencies
+        working-directory: /tmp/render/${{ matrix.template }}
+        run: pnpm install
+
+      - name: Run template checks
+        working-directory: /tmp/render/${{ matrix.template }}
+        shell: bash
+        run: |
+          set -e
+          for script in ${{ matrix.scripts }}; do
+            echo "::group::pnpm $script"
+            pnpm run "$script"
+            echo "::endgroup::"
+          done

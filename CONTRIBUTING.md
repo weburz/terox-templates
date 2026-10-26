@@ -30,7 +30,7 @@ task render-all            # render every template; smoke-test for broken templa
 task clean                 # delete /tmp/terox-render* caches
 ```
 
-`task render-all` runs the same logic as the CI QA workflow — if it passes locally, CI will pass.
+`task render-all` mirrors the CI **render** job. CI also has a **build** job that installs each rendered template and runs its lint, type-check, test and build scripts. To reproduce that locally, `cd` into the render output and run `pnpm install` followed by the scripts listed for that template in [`qa.yml`](./.github/workflows/qa.yml).
 
 ## Adding a new template
 
@@ -140,7 +140,9 @@ Three places need updating when you add a new template:
 
 1. **Root [`README.md`](./README.md)** — add a row to the **Templates** table.
 2. **Root [`.pre-commit-config.yaml`](./.pre-commit-config.yaml)** — append the new directory name to the `exclude:` pattern on `check-yaml` and `check-json`. Template files contain pre-render Go template syntax that isn't valid YAML/JSON.
-3. **No Taskfile change needed** — `task list` and `task render-all` auto-discover any directory containing a `terox.json`.
+3. **Root [`qa.yml`](./.github/workflows/qa.yml)** — add an entry to the `build` job's matrix with the template name and the scripts its own QA workflow runs.
+
+No Taskfile change is needed: `task list` and `task render-all` auto-discover any directory containing a `terox.json`.
 
 ### 7. Verify everything still passes
 
@@ -164,7 +166,7 @@ docs: clarify the {{ }} escape rules
 
 - Branch off `main` for every change. The `no-commit-to-branch` hook blocks direct commits to `main`.
 - Keep PRs scoped to one logical change (one template, one bug fix, one tooling tweak). The catalogue grows by accretion, not by big-bang PRs.
-- The CI [QA workflow](./.github/workflows/qa.yml) runs `terox scaffold` on every template with default vars. If it fails for your PR, the most common cause is unescaped `{{` somewhere — `task render -- <your-template>` locally to reproduce.
+- The CI [QA workflow](./.github/workflows/qa.yml) runs `terox scaffold` on every template with default vars, then installs and builds each rendered project. It also runs weekly to catch upstream dependency drift. If the render job fails, the most common cause is unescaped `{{` somewhere — `task render -- <your-template>` locally to reproduce. If the build job fails, reproduce it from the render output as described above.
 
 ## Style
 

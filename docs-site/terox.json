@@ -34,7 +34,7 @@
     },
     {
       "name": "SiteUrl",
-      "prompt": "Production URL for the docs site (used in <link rel=canonical>, SEO)",
+      "prompt": "Production URL for the docs site, including https://",
       "default": "https://my-project.weburz.com"
     },
     {
