@@ -30,7 +30,7 @@
     {
       "name": "LicenseYear",
       "prompt": "License year",
-      "default": "2026"
+      "default": "{{ .Year }}"
     },
     {
       "name": "CodeOwner",
